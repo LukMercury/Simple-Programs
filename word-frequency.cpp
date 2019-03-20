@@ -11,6 +11,7 @@
 // for output
 const string separator = " ";
 const string separator_line = "\n-----\n\n";
+const string default_output_file = "wfout.txt";
 
 //------------------------------------------------------------------------------
 
@@ -215,21 +216,35 @@ ostream& operator<<(ostream& os, const multimap<int,string>& mm)
 
 //------------------------------------------------------------------------------
 
-int main()
+int main(int argc, char* argv[])
 try{
     // get input and output file names
     string input_file, output_file;
-    cout << "read from file: ";
-    cin >> input_file;
-    cout << "write to file: ";
-    cin >> output_file;
+
+    // optional: run with parameters
+    if (argc == 1) {
+        cout << "read from file: ";
+        cin >> input_file;
+        cout << "write to file: ";
+        cin >> output_file;
+    }
+    else if (argc == 2) {
+        input_file = string(argv[1]);
+        output_file = default_output_file;
+    }
+    else if (argc == 3) {
+        input_file = string(argv[1]);
+        output_file = string(argv[2]);
+    }
+    else
+        error("Usage: word-frequency [input_file] [output_file]");
 
     ifstream is {input_file};
     if (!is)
         error("Couldn't open input file");
 
     if (output_file.size() == 0)
-        error("Output file name not specified");
+        output_file = default_output_file;
     ofstream os {output_file};
 
     // create unordered_map, count words
