@@ -18,7 +18,8 @@ const string default_output_file = "wfout.txt";
 // all words lowercase
 void lowercase(string& s)
 {
-    for (size_t i = 0; i < s.size(); ++i) s[i] = tolower(s[i]);
+    for (size_t i = 0; i < s.size(); ++i)
+        s[i] = tolower(s[i]);
 }
 
 //------------------------------------------------------------------------------
@@ -84,7 +85,8 @@ bool get_word(string& word, istream& is)
             // _ is ok: underscores can be part of names
             // & is ok: R&D, etc
             {
-                if (i+1 != s.size()) buffer.putback(s,i+1);
+                if (i+1 != s.size())
+                    buffer.putback(s,i+1);
                 word = temp;
                 return true;
             }
@@ -92,10 +94,11 @@ bool get_word(string& word, istream& is)
             case '#':
             {
                 // treat tags as separate words
-                if (i == 0 && i+1 != s.size() && isalpha(s[i+1]))
+                if ((i == 0) && (i+1 != s.size()) && isalpha(s[i+1]))
                     temp = temp + s[i];
                 else {
-                    if (i+1 != s.size()) buffer.putback(s,i+1);
+                    if (i+1 != s.size())
+                        buffer.putback(s,i+1);
                     word = temp;
                     return true;
                 }
@@ -107,19 +110,21 @@ bool get_word(string& word, istream& is)
                 // ignore leading "-"
                 if (i == 0)
                 {
-                    if (i+1 != s.size()) buffer.putback(s,i+1);
+                    if (i+1 != s.size())
+                        buffer.putback(s,i+1);
                     word = temp;
                     return true;
                 }
                 // add regular hyphens
-                else if (i+1 != s.size() && isalpha(s[i+1]))
+                else if ((i+1 != s.size()) && isalpha(s[i+1]))
                     temp = temp + s[i];
 
                 // series of "-"
-                if (i+1 != s.size() && s[i+1] == '-') {
-                    while (i+1 != s.size() && s[i+1] == '-')
+                if ((i+1 != s.size()) && (s[i+1] == '-')) {
+                    while ((i+1 != s.size()) && (s[i+1] == '-'))
                         ++i;
-                    if (i+1 != s.size()) buffer.putback(s,i+1);
+                    if (i+1 != s.size())
+                        buffer.putback(s,i+1);
                     word = temp;
                     return true;
                 }
@@ -131,15 +136,16 @@ bool get_word(string& word, istream& is)
                 // ignore leading apostrophe
                 if (i == 0)
                 {
-                    if (i+1 != s.size()) buffer.putback(s,i+1);
+                    if (i+1 != s.size())
+                        buffer.putback(s,i+1);
                     word = temp;
                     return true;
                 }
                 // ignore genitives
-                else if (i+1 != s.size() && (s[i+1] == 's' || s[i+1] == 'S'))
+                else if ((i+1 != s.size()) && ((s[i+1] == 's') || (s[i+1] == 'S')))
                     ++i;
                 // include all the rest (won't, don't, etc)
-                else if (i+1 != s.size() && isalpha(s[i+1]))
+                else if ((i+1 != s.size()) && isalpha(s[i+1]))
                     temp = temp + s[i];
                 break;
             }
@@ -148,9 +154,10 @@ bool get_word(string& word, istream& is)
                 // no numbers
                 if (isdigit(s[i])) {
                     // remove numbers efficiently
-                    while (i+1 != s.size() && isdigit(s[i+1]))
+                    while ((i+1 != s.size()) && isdigit(s[i+1]))
                         ++i;
-                    if (i+1 != s.size()) buffer.putback(s,i+1);
+                    if (i+1 != s.size())
+                        buffer.putback(s,i+1);
                     word = temp;
                     return true;
                 }
