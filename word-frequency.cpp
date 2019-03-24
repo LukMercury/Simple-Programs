@@ -142,7 +142,8 @@ bool get_word(string& word, istream& is)
                     return true;
                 }
                 // ignore genitives
-                else if ((i+1 != s.size()) && ((s[i+1] == 's') || (s[i+1] == 'S')))
+                else if ((i+1 != s.size()) &&
+                        ((s[i+1] == 's') || (s[i+1] == 'S')))
                     ++i;
                 // include all the rest (won't, don't, etc)
                 else if ((i+1 != s.size()) && isalpha(s[i+1]))
