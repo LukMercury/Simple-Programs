@@ -1,9 +1,9 @@
-// Convert miles to kilometers 
+// Convert miles to kilometers
 // Usage: milestokm <distance1> <distance2> ...
 
 #include "std_lib_facilities.h"
 
-double miles_to_km = 1.609344;
+constexpr double miles_to_km = 1.609344;
 
 double cstring_to_double(char* s)
 {
@@ -16,10 +16,10 @@ double cstring_to_double(char* s)
 
 int main(int argc, char* argv[])
 try{
-        double kilometers {0};
         cout << fixed << setprecision(2);
+        
         for (int i = 1; i < argc; ++i) {
-            kilometers = miles_to_km * cstring_to_double(argv[i]);
+            double kilometers = miles_to_km * cstring_to_double(argv[i]);
             cout << kilometers << '\n';
         }
 }
@@ -29,4 +29,3 @@ catch(exception& e) {
 catch(...) {
     cout << "Unknown error\n";
 }
-

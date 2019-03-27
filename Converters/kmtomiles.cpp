@@ -3,7 +3,7 @@
 
 #include "std_lib_facilities.h"
 
-double km_to_miles = 0.6213712;
+constexpr double km_to_miles = 0.6213712;
 
 double cstring_to_double(char* s)
 {
@@ -16,10 +16,10 @@ double cstring_to_double(char* s)
 
 int main(int argc, char* argv[])
 try{
-        double miles {0};
         cout << fixed << setprecision(2);
+        
         for (int i = 1; i < argc; ++i) {
-            miles = km_to_miles * cstring_to_double(argv[i]);
+            double miles = km_to_miles * cstring_to_double(argv[i]);
             cout << miles << '\n';
         }
 }
