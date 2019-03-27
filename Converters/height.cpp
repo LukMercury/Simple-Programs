@@ -18,6 +18,10 @@ double cstring_to_double(char* s)
 int main(int argc, char* argv[])
 try{
         double feet {0};
+
+        if (argc == 1)
+            return 0;
+            
         if (argc >= 2)
             feet = cstring_to_double(argv[1]);
 
