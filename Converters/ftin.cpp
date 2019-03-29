@@ -1,5 +1,5 @@
 // Convert height in feet and inches to cm
-// Usage: height [feet] [inches]
+// Usage: ftin [feet] [inches]
 
 #include "std_lib_facilities.h"
 
