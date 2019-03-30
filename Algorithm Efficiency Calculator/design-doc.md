@@ -12,7 +12,7 @@
 
 
 
-Input
+##### Input
 
 >intput.txt -> line:
 >
@@ -22,19 +22,21 @@ Input
 >
 >x*x : 1000000 : 0 : 2000
 >
->> later feature: alternative input form cin, same format 
+>>  feature: also read from standard input
 
 
 
-###### 1. Parsing
+---
+
+
+
+##### 1. Parsing
 
 - read from file using getline()
 
-- `istringstream is {line}`
+- `Line_data parse(line)` - use `istringstream`
 
-- `void parse(line)`
-
-- use a "`get()`" to insert tokens into a vector of strings up until first":"
+- use a `get()`" to insert tokens into a vector up until first":"
 
   { use a Buffer? }
 
@@ -46,9 +48,9 @@ Input
 
   
 
-###### 2. Composing function
+##### 2. Composing function
 
-- now use the tokens from the vector { istringstream }
+- now use the tokens from the vector
 
 - define a grammar
 
@@ -60,11 +62,16 @@ Input
 
   
 
-###### 3. Input loop
+##### 3. Input loop
 
 ```c++
+struct Token {
+    char type;
+    double value;
+    string name;
+}
 struct Line_data {
-    string function_string;
+    vector<Token> function;
     double ref_value;
     int lower;
     int upper;
@@ -78,7 +85,7 @@ while (getline(is, line)) {
 
 
 
-###### 4. Solve loop
+##### 4. Solve loop
 
 ```c++
 for (Line_data data : vl) {
@@ -88,7 +95,7 @@ for (Line_data data : vl) {
 
 
 
-###### Types
+##### Types
 
 ```c++
 double ref_value;
@@ -98,11 +105,12 @@ double (*function)(int);
 double expression(int x);
 double term(int x);
 double primary(int x);
+Line_data parse(string& s);
 ```
 
 
 
-###### #include
+##### #include
 
 `std_lib_facilities.h`
 
