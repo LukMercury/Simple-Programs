@@ -95,6 +95,14 @@ for (Line_data data : vl) {
 
 
 
+##### 5. Extra features
+
+- read from standard input
+
+- custom functions `functions.h` - would require recompile when adding new function
+
+
+
 ##### Types
 
 ```c++
