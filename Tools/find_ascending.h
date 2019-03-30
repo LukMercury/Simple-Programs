@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 /*
 You have an ascending function f(x) defined on [0,...)
-and an integer n
+and a double n
 You have to find the maximum integer x such that f(x) < n still holds
 
 Solution: perform a binary search for f(x) == n on an interval
@@ -15,7 +15,7 @@ Useful for comparing algorithm speeds based on input size n
 Example function class:
 
 struct My_function {
-    int n;
+    double n {8};
     double fct(int x) { return x/log10(x); }
 };
 */
