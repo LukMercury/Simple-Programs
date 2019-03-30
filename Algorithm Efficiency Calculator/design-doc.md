@@ -58,6 +58,10 @@
 
 - probably `double expression(int x)`; `double term(int x)`; `double primary(int x)` use tokens from vector from Line_data
 
+- `double expression(int x)` uses `Line_data.get()` and `Line_data.putback()`
+
+- Line_data has an implicit "Buffer" since it can manipulate indices
+
 - `find_ascending.h` can be used, call `double expression(int x)`
 
   
@@ -68,14 +72,24 @@
 struct Token {
     char type;
     double value;
-    string name;
-}
-struct Line_data {
+    string fname;
+    Token(char);
+    Token(char, double);
+    Token(char, const string&);
+};
+
+class Line_data {
+public:
     vector<Token> function;
     double ref_value;
     int lower;
     int upper;
-}
+    Token get(); // retuns 
+    void putback();
+private:
+    vector<Token>::iterator curr;
+};
+
 vector<Line_data> vl
 while (getline(is, line)) {
 	Line_data data = parse(line);
