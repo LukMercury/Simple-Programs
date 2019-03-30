@@ -8,7 +8,7 @@ Solution: perform a binary search for f(x) == n on an interval
         where "==" means "largest return value smaller than"
         -1 means no solution
 
-Useful for comparing algorithm speeds based on input size n
+Useful for computing algorithm speeds: input size x based on execute time n
 */
 
 /*
