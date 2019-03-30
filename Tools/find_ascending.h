@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
 /*
-You have an ascending function f(x) defined on [0,...)
+Being given an ascending function f(x) defined on [0,...)
 and a double n
 You have to find the maximum integer x such that f(x) < n still holds
 
@@ -9,16 +9,17 @@ Solution: perform a binary search for f(x) == n on an interval
         -1 means no solution
 
 Useful for computing algorithm speeds: input size x based on execute time n
+and algorithm comparison: input size x such that alg1 is faster than alg2
 */
 
-/*
-Example function class:
+//------------------------------------------------------------------------------
+// Function struct: use in main program with defined functions or lambdas
 
 struct My_function {
-    double n {8};
-    double fct(int x) { return x/log10(x); }
+    My_function(double (*f)(int), double nn) : fct{f}, n{nn} {} // constructor
+    double (*fct)(int x);       // pointer to function
+    double n;                   // reference value
 };
-*/
 
 //------------------------------------------------------------------------------
 
