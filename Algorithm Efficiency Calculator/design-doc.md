@@ -30,7 +30,9 @@
 
 
 
-##### 1. Parsing
+#####  1. Parsing  
+
+- [x] 
 
 - read from file using getline()
 
@@ -50,6 +52,8 @@
 
 ##### 2. Composing function
 
+- [ ] 
+
 - now use the tokens from the vector
 
 - define a grammar
@@ -67,6 +71,8 @@
   
 
 ##### 3. Input loop
+
+- [ ] 
 
 ```c++
 struct Token {
@@ -101,6 +107,8 @@ while (getline(is, line)) {
 
 ##### 4. Solve loop
 
+- [ ] 
+
 ```c++
 for (Line_data data : vl) {
     os < compare_alg::binary_search(data.lower, data.upper, expression(data.ref_value));
@@ -111,9 +119,8 @@ for (Line_data data : vl) {
 
 ##### 5. Extra features
 
-- read from standard input
-
-- custom functions `functions.h` - would require recompile when adding new function
+- [ ] read from standard input
+- [ ] custom functions `functions.h` - would require recompile when adding new function
 
 
 
