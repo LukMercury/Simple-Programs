@@ -38,9 +38,7 @@
 
 - `Line_data parse(line)` - use `istringstream`
 
-- use a `get()`" to insert tokens into a vector up until first":"
-
-  { use a Buffer? }
+- insert tokens into a vector up until first":"
 
 - save ref_number after ":" followd by ":" lower ":" upper
 
@@ -86,7 +84,7 @@ struct Token {
 
 class Line_data {
 public:
-    vector<Token> function;
+    vector<Token> expr;
     double ref_value;
     int lower;
     int upper;
@@ -110,8 +108,10 @@ while (getline(is, line)) {
 - [ ] 
 
 ```c++
-for (Line_data data : vl) {
-    os < compare_alg::binary_search(data.lower, data.upper, expression(data.ref_value));
+for (Line_data data : vline) {
+    buffer = data; // expression() uses bufffer
+    My_function function {expression, vline.ref_value};
+    os < compare_alg::binary_search(buffer.lower, buffer.upper, function));
 }
 ```
 
@@ -153,4 +153,3 @@ Line_data parse(string& s);
 
 ---
 
-![img](image.jpg)
