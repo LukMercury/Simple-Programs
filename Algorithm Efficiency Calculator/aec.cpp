@@ -7,7 +7,7 @@
 #include "functions.h"
 
 //------------------------------------------------------------------------------
-// get data from file or stdin
+// get data from file
 
 void get_data(vector<Line_data>& vd, istream& is)
 {
