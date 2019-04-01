@@ -3,34 +3,7 @@
 #include "std_lib_facilities.h"
 #include "line_data.h"
 #include "compose_function.h"
-
-//------------------------------------------------------------------------------
-// Match function by name: one argument
-
-double match_function(const string& s, double x)
-{
-    if (s == "log")
-        return log(x);
-    else if (s == "log2")
-        return log2(x);
-    else if (s == "log10")
-        return log10(x);
-    else if (s == "sqrt")
-        return sqrt(x);
-    else
-        error("Unknown function", s);
-}
-
-//------------------------------------------------------------------------------
-// Match function by name: two arguments
-
-double match_function_2arg(const string& s, double x1, double x2)
-{
-    if (s == "pow")
-        return pow(x1, x2);
-    else
-        error("Unknown function", s);
-}
+#include "functions.h"
 
 //------------------------------------------------------------------------------
 
@@ -169,6 +142,7 @@ double Compose_fct::expression(double x)
 // Custom operators for binary search
 
 bool operator==(double x, const Compose_fct& fct) {
+    // expression(x) can resolve buffer only once
     Compose_fct f1 = fct;
     Compose_fct f2 = fct;
     if ((f1.expression(x) <= f1.buffer.ref_value) &&

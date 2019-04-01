@@ -4,6 +4,7 @@
 #include "line_data.h"
 #include "parse.h"
 #include "compose_function.h"
+#include "functions.h"
 
 //------------------------------------------------------------------------------
 // get data from file or stdin
