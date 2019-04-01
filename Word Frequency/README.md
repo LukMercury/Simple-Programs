@@ -18,9 +18,7 @@ word-frequency
 
 word-frequency \<input_file>
 
-​	*- enter input_file manually*
-
-​	*- output_file will be 'wfout.txt'*
+​	*- enter input_file manually, output_file will be 'wfout.txt'*
 
 word-frequency \<input_file> <output_file>
 
