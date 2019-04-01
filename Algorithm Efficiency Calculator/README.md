@@ -7,7 +7,7 @@ and a double n
 You have to find the maximum integer x such that f(x) < n still holds   
 
 Useful for computing algorithm speeds: input size x based on maximum execute time n  
-and algorithm comparison: input size x such that algorithm 1 is faster than algorithm 2    
+and algorithm comparison: input size x such that algorithm 1 runs faster than algorithm 2    
 
 ---
 
