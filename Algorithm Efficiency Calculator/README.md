@@ -11,7 +11,7 @@ and algorithm comparison: input size x such that algorithm 1 is faster than algo
 
 ---
 
-##### Usage:  
+#### Usage:  
 
 aec	   			
 
@@ -23,13 +23,13 @@ aec <input_file>
 
 ---
 
-##### Input line format:
+#### Input line format:
 
 \<function> : \<reference value n> : \<lower search boundary> : \<upper search boundary>   
 
 Ctr-D (Linux) / Ctrl-Z (Windows) to signal end of input  
 
-Examples:  
+###### Examples:  
 
 ​	x * log10(x) : 1000000 : 0 : 1000000  
 
