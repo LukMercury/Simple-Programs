@@ -29,7 +29,9 @@ aec <input_file>
 
 Ctr-D (Linux) / Ctrl-Z (Windows) to signal end of input  
 
-###### Examples:  
+  
+
+Examples:  
 
 ​	x * log10(x) : 1000000 : 0 : 1000000  
 
