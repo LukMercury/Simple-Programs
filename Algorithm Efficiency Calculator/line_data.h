@@ -24,18 +24,17 @@ public:
     double ref_value;
     int lower;
     int upper;
+
     Line_data() : ref_value{0}, lower{0}, upper{0}
         { curr = expr.begin(); }
+
+    Line_data(const Line_data& ld);
+    Line_data& operator=(const Line_data& ld);
+
     Token get();
     void putback();
 private:
     vector<Token>::iterator curr;
 };
-
-//------------------------------------------------------------------------------
-
-double expression(double x);
-double term(double x);
-double primary(double x);
 
 //------------------------------------------------------------------------------

@@ -50,7 +50,7 @@
 
 ##### 2. Composing function
 
-- [ ] 
+- [x] 
 
 - now use the tokens from the vector
 
@@ -70,7 +70,7 @@
 
 ##### 3. Input loop
 
-- [ ] 
+- [x] 
 
 ```c++
 struct Token {
@@ -105,13 +105,13 @@ while (getline(is, line)) {
 
 ##### 4. Solve loop
 
-- [ ] 
+- [x] 
 
 ```c++
 for (Line_data data : vline) {
     buffer = data; // expression() uses bufffer
-    My_function function {expression, vline.ref_value};
-    os < compare_alg::binary_search(buffer.lower, buffer.upper, function));
+    My_function function {expression, buffer.ref_value};
+    os <<c compare_alg::binary_search(buffer.lower, buffer.upper, function));
 }
 ```
 
@@ -119,7 +119,7 @@ for (Line_data data : vline) {
 
 ##### 5. Extra features
 
-- [ ] read from standard input
+- [x] read from standard input
 - [ ] custom functions `functions.h` - would require recompile when adding new function
 
 
@@ -143,7 +143,7 @@ Line_data parse(string& s);
 
 `std_lib_facilities.h`
 
-`find_ascending.h` - should work from the go
+`find_ascending.h` - had to give that up
 
 ---
 
