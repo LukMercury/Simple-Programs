@@ -16,8 +16,8 @@ and algorithm comparison: input size x such that alg1 is faster than alg2
 // Function struct: use in main program with defined functions or lambdas
 
 struct My_function {
-    My_function(double (*f)(int), double nn) : fct{f}, n{nn} {} // constructor
-    double (*fct)(int x);       // pointer to function
+    My_function(double (*f)(double), double nn) : fct{f}, n{nn} {} // constructor
+    double (*fct)(double x);       // pointer to function
     double n;                   // reference value
 };
 
@@ -29,7 +29,7 @@ namespace compare_alg {
 // Comparison operators for binary search
 
 template<typename Result>
-bool operator==(int x, Result r) {
+bool operator==(double x, Result r) {
     if ((r.fct(x) <= r.n) && (r.fct(x+1) > r.n))
         return true;
     else
@@ -37,7 +37,7 @@ bool operator==(int x, Result r) {
 }
 
 template<typename Result>
-bool operator>(int x, Result r) {
+bool operator>(double x, Result r) {
     return r.fct(x) > r.n;
 }
 

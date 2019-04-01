@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 
 const char number = '8';
-const char end = 'e';
+const char line_end = 'e';
 const char variable = 'x';
 const char function_name = 'f';
 
@@ -30,7 +30,12 @@ public:
     void putback();
 private:
     vector<Token>::iterator curr;
-
 };
+
+//------------------------------------------------------------------------------
+
+double expression(double x);
+double term(double x);
+double primary(double x);
 
 //------------------------------------------------------------------------------

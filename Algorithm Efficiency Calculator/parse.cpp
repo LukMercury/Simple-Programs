@@ -23,6 +23,7 @@ Line_data parse(const string& s)
             case '-':
             case '*':
             case '/':
+            case ',':
             {
                 data.expr.push_back(Token(ch));
                 break;
