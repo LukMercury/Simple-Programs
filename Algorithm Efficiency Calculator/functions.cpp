@@ -16,7 +16,6 @@ double fact(double n)   // function might get a double argument
 
 
 //------------------------------------------------------------------------------
-
 // Match function by name: one argument
 
 double match_function(const string& s, double x)
