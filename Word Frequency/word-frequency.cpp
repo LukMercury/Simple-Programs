@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// A program I made to help me with text analysis.
+// A program I made to help me with text analysis
 // Input: a text file containing some text
 // Output: word frequency sorted alphabetically & by frequency (descending)
 
