@@ -1,15 +1,23 @@
 CC = g++
 CFLAGS = -std=c++11 -Wall
+ODIR = exe
+DEPS = compose_function.h functions.h line_data.h parse.h
 SRCS = compose_function.cpp functions.cpp line_data.cpp parse.cpp aec.cpp
-OBJS = $(SRCS:.cpp=.o)
+_OBJS = $(SRCS:.cpp=.o)
+OBJS =  $(patsubst %,$(ODIR)/%,$(_OBJS))
 
-%.o: %.cpp %.h
-	$(CC) -c -o $@ $< $(CFLAGS)
+.PHONY: build dir clean
 
-aec: $(OBJS)
+build: dir $(ODIR)/aec
+
+dir:
+	mkdir -p $(ODIR);
+
+$(ODIR)/aec: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS)
 
-.PHONY: clean
+$(ODIR)/%.o: %.cpp $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
 
 clean:
-	rm aec *.o
+	rm $(ODIR)/aec $(ODIR)/*.o
