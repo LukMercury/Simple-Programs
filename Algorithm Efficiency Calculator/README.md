@@ -43,3 +43,7 @@ Examples:
 
 ---
 
+Output "-1" means no solution found for given conditions   
+
+---
+
