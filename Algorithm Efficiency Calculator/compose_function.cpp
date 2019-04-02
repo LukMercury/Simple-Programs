@@ -6,23 +6,6 @@
 #include "functions.h"
 
 //------------------------------------------------------------------------------
-
-Compose_fct::Compose_fct(const Compose_fct& cf)
-    : buffer{cf.buffer}
-{
-}
-
-//------------------------------------------------------------------------------
-
-Compose_fct& Compose_fct::operator=(const Compose_fct& cf)
-{
-    if (this == &cf)
-        return *this;
-    buffer = cf.buffer;
-    return *this;
-}
-
-//------------------------------------------------------------------------------
 // Deal with numbers, variables, parantheses and functions
 
 double Compose_fct::primary(double x)

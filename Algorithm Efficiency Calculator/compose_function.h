@@ -5,9 +5,6 @@ struct Compose_fct {
 
     Compose_fct(const Line_data& line) : buffer{line} {}
 
-    Compose_fct(const Compose_fct& cf);
-    Compose_fct& operator=(const Compose_fct& cf);
-
     double expression(double);
     double term(double);
     double primary(double);
