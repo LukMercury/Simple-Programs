@@ -32,7 +32,7 @@ double match_function(const string& s, double x)
         return fact(x);
     // add each new function here too ...
     else
-        error("Unknown function", s);
+        error("Unknown function (one arg)", s);
 }
 
 //------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ double match_function_2arg(const string& s, double x1, double x2)
         return pow(x1, x2);
     // ... or here
     else
-        error("Unknown function", s);
+        error("Unknown function (two args)", s);
 }
 
 //------------------------------------------------------------------------------
