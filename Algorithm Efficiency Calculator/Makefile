@@ -23,4 +23,4 @@ $(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 clean:
-	rm $(ODIR)/aec $(ODIR)/*.o
+	rm $(ODIR)/aec $(OBJS)
