@@ -125,10 +125,8 @@ double Compose_fct::expression(double x)
 // Custom operators for binary search
 
 bool operator==(double x, Compose_fct f) {
-    // expression(x) can resolve buffer only once
-    Compose_fct f2 = f;
     if ((f.expression(x) <= f.buffer.ref_value) &&
-        (f2.expression(x+1) > f2.buffer.ref_value))
+        (f.expression(x+1) > f.buffer.ref_value))
         return true;
     else
         return false;
