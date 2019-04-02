@@ -141,27 +141,26 @@ double Compose_fct::expression(double x)
 //------------------------------------------------------------------------------
 // Custom operators for binary search
 
-bool operator==(double x, const Compose_fct& fct) {
+bool operator==(double x, Compose_fct f) {
     // expression(x) can resolve buffer only once
-    Compose_fct f1 = fct;
-    Compose_fct f2 = fct;
-    if ((f1.expression(x) <= f1.buffer.ref_value) &&
+    Compose_fct f2 = f;
+    if ((f.expression(x) <= f.buffer.ref_value) &&
         (f2.expression(x+1) > f2.buffer.ref_value))
         return true;
     else
         return false;
 }
 
-bool operator>(double x, const Compose_fct& fct) {
-    Compose_fct f = fct;
+bool operator>(double x, Compose_fct f) {
     return f.expression(x) > f.buffer.ref_value;
 }
 
 //------------------------------------------------------------------------------
 // Binary search
 
-int solve(int lower, int upper, const Compose_fct& f) {
-
+int solve(const Compose_fct& f) {
+    int lower {f.buffer.lower};
+    int upper {f.buffer.upper};
     while (lower <= upper) {
         int middle = (lower + upper) / 2;
         if (middle == f)

@@ -32,9 +32,8 @@ try{
             if (!cin)
                 return 0;
             Line_data line = parse(raw_line);
-            Compose_fct line_fct(line);
-            cout << solve(line_fct.buffer.lower,
-                line_fct.buffer.upper, line_fct) << '\n';
+            Compose_fct line_fct {line};
+            cout << solve(line_fct) << '\n';
         }
     }
 
@@ -48,9 +47,8 @@ try{
 
         // compute
         for (Line_data line : vlines) {
-            Compose_fct line_fct(line);
-            cout << solve(line_fct.buffer.lower,
-                line_fct.buffer.upper, line_fct) << '\n';
+            Compose_fct line_fct {line};
+            cout << solve(line_fct) << '\n';
         }
     }
 
