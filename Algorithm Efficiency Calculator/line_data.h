@@ -1,9 +1,9 @@
 //------------------------------------------------------------------------------
 
 const char number = '8';
-const char line_end = 'e';
 const char variable = 'x';
 const char function_name = 'f';
+const char line_end = 'e';
 
 //------------------------------------------------------------------------------
 
