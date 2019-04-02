@@ -5,14 +5,16 @@ DEPS = compose_function.h functions.h line_data.h parse.h \
 	std_lib_facilities.h
 SRCS = compose_function.cpp functions.cpp line_data.cpp parse.cpp aec.cpp
 _OBJS = $(SRCS:.cpp=.o)
-OBJS =  $(patsubst %,$(ODIR)/%,$(_OBJS))
+OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
 
-.PHONY: build dir clean
+.PHONY: all dir build clean
 
-build: dir $(ODIR)/aec
+all: dir build
 
 dir:
 	mkdir -p $(ODIR);
+
+build: $(ODIR)/aec
 
 $(ODIR)/aec: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS)
