@@ -8,7 +8,6 @@
 Token Line_data::get()
 {
     if (curr == expr.end()) {
-        curr = expr.begin();
         return (Token(line_end));
     }
     Token t = *curr;
