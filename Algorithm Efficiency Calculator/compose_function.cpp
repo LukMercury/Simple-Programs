@@ -32,17 +32,17 @@ double Compose_fct::primary(double x)
             double d = expression(x);
             // ')' or ','
             t = buffer.get();
+            // one-variable functions
+            if (t.kind == ')') {
+                return match_function(fname,d);
+            }
             // two-variable functions
-            if (t.kind == ',') {
+            else if (t.kind == ',') {
                 double d2 = expression(x);
                 t = buffer.get();
                 if (t.kind != ')')
                     error("')' expected");
                 return match_function_2arg(fname,d,d2);
-            }
-            // one-variable functions
-            else if (t.kind == ')') {
-                return match_function(fname,d);
             }
             else
                 error("')' or ',' expected");
@@ -56,7 +56,7 @@ double Compose_fct::primary(double x)
         case '+':
             return primary(x);
         case line_end:
-            error("Unexpended ending to function");
+            error("Unexpected ending to function");
         default:
             error("Primary expected");
     } // switch
