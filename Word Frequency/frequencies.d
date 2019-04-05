@@ -1,6 +1,10 @@
 #!/usr/bin/rdmd
 
-// simpler D program added for comparison
+// Simpler D program added for comparison
+// Output is roughly the same
+// The program is about 5 times slower due to the complicated regex
+// For a simpler regex ("[ \t,.;:?]+") it still is 2 times slower
+// Conclusion: regex is a lot slower than switch parsing
 
 import std.stdio, std.string, std.algorithm, std.regex, std.uni;
 
