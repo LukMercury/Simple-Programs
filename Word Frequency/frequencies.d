@@ -2,20 +2,21 @@
 
 // simpler D program added for comparison
 
-import std.stdio, std.string, std.algorithm;
+import std.stdio, std.string, std.algorithm, std.regex, std.uni;
 
 void main() {
     // Compute counts
     uint[string] freqs;
     uint total_words;
+    auto r = regex("[ \\d\\[\\]{}()\t,.;:!?\"'~`/+*$]+(-{2,})('s)");
     foreach (line; stdin.byLine()) {
-        foreach (word; split(strip(line))) {
+        foreach (word; split(toLower(strip(line)), r)) {
             ++freqs[word.idup];
             ++total_words;
         }
     }
     // Summary
-    double avg_freq = total_words/freqs.length;
+    double avg_freq = double(total_words)/freqs.length;
     writeln("Total words: ", total_words);
     writeln("Different words: ", freqs.length);
     writeln("Average frequency: ", avg_freq);
