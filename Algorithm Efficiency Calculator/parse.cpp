@@ -108,7 +108,7 @@ Line_data parse(const string& s)
     if (row_count != 3)
         error("Wrong line format");
     if (!has_variable)
-        error("Function contains no variable");
+        error("Function must contain a variable named 'x'");
     return data;
 }
 
