@@ -49,22 +49,30 @@ Line_data parse(const string& s)
                     double var;
                     is >> var;
                     if (!is)
-                        error("double value expected");
+                        error("Double value expected");
+                    if (var < 0)
+                        error("Positive reference value expected");
                     data.ref_value = var;
                 }
                 else if (row_count == 2) {
                     int var;
                     is >> var;
                     if (!is)
-                        error("integer value expected");
+                        error("Integer value expected");
+                    if (var < 0)
+                        error("Positive lower boundary expected");
                     data.lower = var;
                 }
                 else if (row_count == 3) {
                     int var;
                     is >> var;
                     if (!is)
-                        error("integer value expected");
+                        error("Integer value expected");
+                    if (var < 0)
+                        error("Positive upper boundary expected");
                     data.upper = var;
+                    if (data.lower > data.upper)
+                        error("Invalid search interval");
                 }
                 else
                     error("Wrong line format");
