@@ -16,12 +16,12 @@ double cstring_to_double(char* s)
 
 int main(int argc, char* argv[])
 try{
-        cout << fixed << setprecision(2);
+    cout << fixed << setprecision(2);
         
-        for (int i = 1; i < argc; ++i) {
-            double miles = km_to_miles * cstring_to_double(argv[i]);
-            cout << miles << '\n';
-        }
+    for (int i = 1; i < argc; ++i) {
+        double miles = km_to_miles * cstring_to_double(argv[i]);
+        cout << miles << '\n';
+    }
 }
 catch(exception& e) {
     cout << e.what() << '\n';

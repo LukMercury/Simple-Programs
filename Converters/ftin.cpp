@@ -1,4 +1,4 @@
-// Convert height in feet and inches to cm
+    // Convert height in feet and inches to cm
 // Usage: ftin [feet] [inches]
 
 #include "std_lib_facilities.h"
@@ -17,11 +17,10 @@ double cstring_to_double(char* s)
 
 int main(int argc, char* argv[])
 try{
-        double feet {0};
-
         if (argc == 1)
             return 0;
-            
+
+        double feet {0};
         if (argc >= 2)
             feet = cstring_to_double(argv[1]);
 
@@ -32,7 +31,7 @@ try{
         double cm = (feet * inches_per_foot + inches) * cm_per_inch;
 
         cout << fixed << setprecision(2);
-        cout << cm << '\n';
+        cout << cm << ' ' << "cm\n";
 }
 catch(exception& e) {
     cout << e.what() << '\n';
