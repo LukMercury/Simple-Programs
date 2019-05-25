@@ -7,21 +7,15 @@
 // Custom functions
 // <-- add additional functions here
 
-// for factorial: tail call elimination
-int tail_fact(int n, int result)
-{
-    return (n <= 1)
-    ? result
-    : tail_fact(n-1, n*result);
-}
-
 // factorial
 double fact(double n)   // function might get a double argument
                         // when resolving expression
 {
     int i = static_cast<int>(n);
-    int result = 1;
-    return tail_fact(i, 1);
+    int res = 1;
+    for (int j = 1; j <= i; ++j)
+        res *= j;
+    return res;
 }
 
 
