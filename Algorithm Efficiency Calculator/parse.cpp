@@ -84,13 +84,13 @@ Line_data parse(const string& s)
                 // check if character "x" is part of a function name
                 char temp;
                 is >> temp;
-                if (is && !isalpha(temp)) {
+                if (is && !isalnum(temp)) {
                     is.putback(temp);
                     data.expr.push_back(Token(variable));
                     has_variable = true;
                     break;
                 }
-                if (is && isalpha(temp)) {
+                if (is && isalnum(temp)) {
                     is.putback(temp);
                     // no break, move to "default:"
                 }
