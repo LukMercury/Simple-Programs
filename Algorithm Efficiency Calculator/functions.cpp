@@ -8,13 +8,11 @@
 // <-- add additional functions here
 
 // factorial
-double fact(double n)   // function might get a double argument
-                        // when resolving expression
+int fact(int n)   
 {
-    int i = static_cast<int>(n);
     int res = 1;
-    for (int j = 1; j <= i; ++j)
-        res *= j;
+    for (int i = 1; i <= n; ++i)
+        res *= i;
     return res;
 }
 
