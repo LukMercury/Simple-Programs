@@ -33,6 +33,8 @@ public:
 
     Token get();
     void putback();
+    void reset()
+        { curr = expr.begin(); }
 private:
     vector<Token>::iterator curr;
 };
