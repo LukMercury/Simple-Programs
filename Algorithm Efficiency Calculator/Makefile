@@ -1,27 +1,28 @@
+.PHONY: all dir build clean
+
 CC = g++
 CFLAGS = -std=c++11 -Wall
-ODIR = bin
-DEPS = compose_function.h functions.h line_data.h parse.h \
-	std_lib_facilities.h
-SRCS = compose_function.cpp functions.cpp line_data.cpp parse.cpp aec.cpp
-_OBJS = $(SRCS:.cpp=.o)
-OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
-TARGET = aec
 
-.PHONY: all dir build clean
+ODIR = bin
+DEPS = $(wildcard *.h)
+SRCS = $(wildcard *.cpp)
+_OBJS = $(SRCS:.cpp=.o)
+OBJS = $(patsubst %,${ODIR}/%,${_OBJS})
+_TARGET = aec
+TARGET=$(patsubst %,${ODIR}/%,${_TARGET})
 
 all: dir build
 
 dir:
-	mkdir -p $(ODIR);
+	@mkdir -p ${ODIR}
 
-build: $(ODIR)/$(TARGET)
+build: ${TARGET}
 
-$(ODIR)/$(TARGET): $(OBJS)
-	$(CC) -o $@ $^ $(CFLAGS)
+${TARGET}: ${OBJS}
+	${CC} -o $@ $^ ${CFLAGS}
 
-$(ODIR)/%.o: %.cpp $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+${ODIR}/%.o: %.cpp ${DEPS}
+	${CC} -c -o $@ $< ${CFLAGS}
 
 clean:
-	rm $(ODIR)/$(TARGET) $(OBJS)
+	rm ${TARGET} ${OBJS}
