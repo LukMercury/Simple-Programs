@@ -21,7 +21,7 @@ class IncrementalStat : Stat {
 
 import std.exception, std.stdio;
 
-void main(string[] args) 
+void main(string[] args)
 {
 	Stat[] stats;
 	foreach (arg; args[1 .. $]) {
@@ -42,10 +42,10 @@ void main(string[] args)
 
 // ----------------------------------------------------------------------------
 
-class Min : IncrementalStat 
+class Min : IncrementalStat
 {
 	this() { _result = double.max; }
-	override void accumulate(double x) 
+	override void accumulate(double x)
 	{
 		if (x < _result) {
 			_result = x;
@@ -55,10 +55,10 @@ class Min : IncrementalStat
 
 // ----------------------------------------------------------------------------
 
-class Max : IncrementalStat 
+class Max : IncrementalStat
 {
 	this() { _result = -double.max; }
-	override void accumulate(double x) 
+	override void accumulate(double x)
 	{
 		if (x > _result) {
 			_result = x;
@@ -77,7 +77,7 @@ class Avg : IncrementalStat
 		_result += x;
 		++items;
 	}
-	override void postprocess() 
+	override void postprocess()
 	{
 		if (items) {
 			_result /= items;
