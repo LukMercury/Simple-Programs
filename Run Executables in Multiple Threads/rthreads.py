@@ -16,7 +16,7 @@ def find(pattern, path):
                 result.append(os.path.join(root, name))
     return result
 
-scripts = find(sys.argv[1], sys.argv[2])
+files = find(sys.argv[1], sys.argv[2])
 
 class RunExecutable(threading.Thread):
     def __init__(self, infile):
@@ -27,8 +27,8 @@ class RunExecutable(threading.Thread):
         subprocess.call(self.infile)
 
 threads = []
-for script in scripts:
-    threads.append(RunExecutable(script))
+for file in files:
+    threads.append(RunExecutable(file))
 
 for thread in threads:
     thread.start()
