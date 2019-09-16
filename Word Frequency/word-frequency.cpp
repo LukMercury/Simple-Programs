@@ -261,7 +261,7 @@ try{
     string word;
     int total_words {0};
 
-    while (get_word(word,is)) {
+    while (get_word(word, is)) {
         if (word.size() != 0) {
             lowercase(word);
             ++wordcount[word];
