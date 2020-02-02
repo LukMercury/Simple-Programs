@@ -68,6 +68,17 @@ class Max : IncrementalStat
 
 // ----------------------------------------------------------------------------
 
+class Sum : IncrementalStat {
+	this() {
+		_result = 0;
+	}
+	override void accumulate(double x) {
+		_result += x;
+	}
+}
+
+// ----------------------------------------------------------------------------
+
 class Avg : IncrementalStat
 {
 	private uint items = 0;
