@@ -71,7 +71,7 @@ int main()
             "number of comments",           // 13
             "characters in comments",       // 14
             "comments percentage of total lines",           // 15
-            "percentage of chars in comments to chars",      // 16
+            "percentage of chars in comments to chars",     // 16
     };
 
     /**
