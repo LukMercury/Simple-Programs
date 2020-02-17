@@ -2,7 +2,7 @@
 
 ---
 
-Analyze C or C++ source file and output statistics
+Analyze C or C++ source file and output statistics \
 WIP, the exercise is meant to showcase C program organization 
 
 ---
