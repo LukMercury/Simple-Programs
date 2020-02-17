@@ -46,6 +46,63 @@ void multiline_comment(double stats[], int len);
 
 void print(char *stat_names[], int show_stat[], int is_percentage[],
            double stats[], int len);
+
+int main()
+{
+    /**
+     * Names for stats
+     * Entering a new stat name will result in a new stat being added. Note that
+     * you also have to compute the stat
+     */
+    char * stat_names[] = {
+            "characters",                   // 0
+            "leading spaces",               // 1
+            "lines",                        // 2
+            "blank lines",                  // 3
+            "blank line percentage",        // 4
+            "characters after tab",         // 5
+            "spaces after tab",             // 6
+            "leading spaces after tab",     // 7
+            "average characters per line",  // 8
+            "average chars/line ignoring leading spaces",   // 9
+            "leading spaces per line",      // 10
+            "spaces",                       // 11
+            "spaces per line ignoring leading spaces",      // 12
+            "number of comments",           // 13
+            "characters in comments",       // 14
+            "comments percentage of total lines",           // 15
+            "percentage of chars in comments to chars",      // 16
+    };
+
+    /**
+     * Decide which stats are shown(1) and which not(0)
+     */
+    int show_stat[NO_STATS];
+    for (int i = 0; i < NO_STATS; ++i) show_stat[i] = 1;
+    show_stat[1] = 0;
+    show_stat[11] = 0;
+
+    /**
+     * Set stats which are pecentages(1)
+     */
+    int is_percentage[NO_STATS] = {0};
+    is_percentage[4] = 1;
+    is_percentage[15] = 1;
+    is_percentage[16] = 1;
+
+    /**
+     * Init stats
+     */
+    double stats[NO_STATS] = {0};
+
+    /**
+     * Start parsing
+     */
+    text(stats, NO_STATS);
+
+    print(stat_names, show_stat, is_percentage, stats, NO_STATS);
+}
+
 /**
  * Handle quotes.
  * Doesn't count identifiers
@@ -264,7 +321,7 @@ void text(double stats[], int len)
  * @param len - in - number of stats
  */
 void print(char *stat_names[], int show_stat[], int is_percentage[],
-        double stats[], int len)
+           double stats[], int len)
 {
     printf("\n");
     for (int i = 0; i < len; ++i) {
@@ -278,60 +335,4 @@ void print(char *stat_names[], int show_stat[], int is_percentage[],
             }
         }
     }
-}
-
-int main()
-{
-    /**
-     * Names for stats
-     * Entering a new stat name will result in a new stat being added. Note that
-     * you also have to compute the stat
-     */
-    char * stat_names[] = {
-            "characters",                   // 0
-            "leading spaces",               // 1
-            "lines",                        // 2
-            "blank lines",                  // 3
-            "blank line percentage",        // 4
-            "characters after tab",         // 5
-            "spaces after tab",             // 6
-            "leading spaces after tab",     // 7
-            "average characters per line",  // 8
-            "average chars/line ignoring leading spaces",   // 9
-            "leading spaces per line",       // 10
-            "spaces",                       // 11
-            "spaces per line ignoring leading spaces",      // 12
-            "number of comments",           // 13
-            "characters in comments",       // 14
-            "comments percentage of total lines",           // 15
-            "percentage of chars in comments to chars",      // 16
-    };
-
-    /**
-     * Decide which stats are shown(1) and which not(0)
-     */
-    int show_stat[NO_STATS];
-    for (int i = 0; i < NO_STATS; ++i) show_stat[i] = 1;
-    show_stat[1] = 0;
-    show_stat[11] = 0;
-
-    /**
-     * Set stats which are pecentages(1)
-     */
-    int is_percentage[NO_STATS] = {0};
-    is_percentage[4] = 1;
-    is_percentage[15] = 1;
-    is_percentage[16] = 1;
-
-    /**
-     * Init stats
-     */
-    double stats[NO_STATS] = {0};
-
-    /**
-     * Start parsing
-     */
-    text(stats, NO_STATS);
-
-    print(stat_names, show_stat, is_percentage, stats, NO_STATS);
 }
