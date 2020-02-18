@@ -1,53 +1,49 @@
-/**
- * The program uses a grammar to parse a C or C++ source file and displays stats
- * File is read character by character
- * The character reads and stats are handeled on many levels:
- *      - text
- *      - line
- *      - word
- *      - per character
- *      - inside comments
- *      - inside quotes
- * Characters are read with getline(), character is sometimes passed as
- * an argument to the next level
- * To modify or add a specific stat, modify the function for the appropriate
- * level or levels.
- * Examples:
- *      1. Stats updated and checks made for each character regardless of
- *      location are done inside per_char().
- *      2. Stats pertaining to the whole text, like average characters per line
- *      are done inside text(), since the total characters and number of lines
- *      are inside the stats[] array (see main()).
- *      3. Sometimes you have to make changes on more than one level.
- */
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-/**
- * Length of "stats" array and all connected arrays (stat names, etc.,
- * see main() function)
- */
-#define NO_STATS 17
+#define NO_STATS 13
+#define WORD_LENGTH 50
 
-/**
- * Function declarations
- */
-void text(double stats[], int len);
-void line(char input_ch, double stats[], int len);
-void per_char(char ch, double stats[], int len);
-void per_char_in_comment(char ch, double stats[], int len);
+void text(double stats[]);
+void line(double stats[]);
+void word(double stats[]);
+void per_char(double stats[]);
 
-void quote(char open_quote, double stats[], int len);
-
-void comment(double stats[], int len);
-void single_line_comment(double stats[], int len);
-void multiline_comment(double stats[], int len);
-
-void compute_text_stats(double stats[], int len);
+void compute_text_stats(double stats[]);
 
 void print(char *stat_names[], int show_stat[], int is_percentage[],
            double stats[], int len);
+
+int regular_space(char ch);
+
+enum {
+    has_tab,
+} flag_tags;
+
+
+int flags[1] = {0};
+
+/**
+ * Enum of stat indices in stats[] array
+ * For code readibility
+ */
+enum {
+    chars,                                          // 0
+    spaces,                                         // 1
+    lead_spaces,                                    // 2
+    lines,                                          // 3
+    blank_lines,                                    // 4
+    blank_percentage,                               // 5
+    ch_after_tab,                                   // 6
+    sp_after_tab,                                   // 7
+    lead_sp_after_tab,                              // 8
+    avg_chars_line,                                 // 9
+    avg_chars_line_ign_lead_sp,                     // 10
+    lead_sp_line,                                   // 11
+    lead_sp_line_ign_lead_sp,                       // 12
+} statistics;
 
 int main()
 {
@@ -57,40 +53,36 @@ int main()
      * you also have to compute the stat
      */
     char * stat_names[] = {
-            "characters",                   // 0
-            "leading spaces",               // 1
-            "lines",                        // 2
-            "blank lines",                  // 3
-            "blank line percentage",        // 4
-            "characters after tab",         // 5
-            "spaces after tab",             // 6
-            "leading spaces after tab",     // 7
-            "average characters per line",  // 8
-            "average chars/line ignoring leading spaces",   // 9
-            "leading spaces per line",      // 10
-            "spaces",                       // 11
+            "characters",                                   // 0
+            "spaces",                                       // 1
+            "leading spaces",                               // 2
+            "lines",                                        // 3
+            "blank lines",                                  // 4
+            "blank line percentage",                        // 5
+            "characters after tab",                         // 6
+            "spaces after tab",                             // 7
+            "leading spaces after tab",                     // 8
+            "average characters per line",                  // 9
+            "average chars/line ignoring leading spaces",   // 10
+            "leading spaces per line",                      // 11
             "spaces per line ignoring leading spaces",      // 12
-            "number of comments",           // 13
-            "characters in comments",       // 14
-            "comments percentage of total lines",           // 15
-            "percentage of chars in comments to chars",     // 16
     };
+
 
     /**
      * Decide which stats are shown(1) and which not(0)
      */
     int show_stat[NO_STATS];
     for (int i = 0; i < NO_STATS; ++i) show_stat[i] = 1;
-    show_stat[1] = 0;
-    show_stat[11] = 0;
+//    show_stat[spaces] = 0;
+//    show_stat[lead_spaces] = 0;
 
     /**
      * Set stats which are pecentages(1)
      */
     int is_percentage[NO_STATS] = {0};
-    is_percentage[4] = 1;
-    is_percentage[15] = 1;
-    is_percentage[16] = 1;
+    is_percentage[blank_percentage] = 1;
+
 
     /**
      * Init stats
@@ -100,221 +92,98 @@ int main()
     /**
      * Start parsing
      */
-    text(stats, NO_STATS);
+    text(stats);
 
     print(stat_names, show_stat, is_percentage, stats, NO_STATS);
 }
 
-/**
- * Handle quotes.
- * Doesn't count identifiers
- * @param open_quote
- * @param stats
- * @param len
- */
-void quote(char open_quote, double stats[], int len)
+void text(double stats[])
 {
-    ++stats[0];
     char ch;
-    char prev_ch = 0;
     while ((ch = getchar()) >= 0) {
-        ++stats[0];
-        switch (ch) {
-            case '\'':
-            case '"':
-                if (ch == open_quote && prev_ch != '\\') {
-                    return;
-                }
-                break;
-            case ' ':
-            case '\t':
-                ++stats[5];
-                ++stats[6];
-                ++stats[11];
-                break;
-            case '\\':
-                break;
-        }
-        prev_ch = ch;
+        ungetc(ch, stdin);
+        line(stats);
     }
-    printf("Error: Quote never closed. File won't compile.\n");
-    exit(1);
+    compute_text_stats(stats);
 }
 
-
-/**
- * Process comments
- * Pass control to single_line_comment() or multiline_comment()
- */
-void comment(double stats[], int len)
+void line(double stats[])
 {
-    char ch = getchar();
-    ++stats[0];
-    switch (ch) {
-        case '/':
-            ++stats[13];
-            single_line_comment(stats, len);
-            break;
-        case '*':
-            ++stats[13];
-            multiline_comment(stats, len);
-            break;
-    }
-}
-
-/**
- * Look for closing of single line comments
- * and process stats separately from code
- * @param stats
- * @param len
- */
-void single_line_comment(double stats[], int len)
-{
+    ++stats[lines];
     char ch;
-    char prev_ch = 0;
-    while ((ch = getchar()) != '\n') {
-        per_char_in_comment(ch, stats, len);
-        prev_ch = ch;
-        continue;
+    flags[has_tab] = 0;
+    /**
+     * Check for leading tab
+     */
+    if ((ch = getchar()) >= 0) {
+        if (ch == '\t') {
+            ++stats[lead_spaces];
+            ungetc(ch, stdin);
+            per_char(stats);
+            flags[has_tab] = 1;
+        }
+        else ungetc(ch, stdin);
     }
-    if (prev_ch == '\\') single_line_comment(stats, len);
+    else (ungetc, stdin);
+    /**
+     * Deal with leading spaces
+     */
+    while ((ch = getchar()) >= 0) {
+        if (!regular_space(ch)) break;
+        else {
+            ++stats[lead_spaces];
+            ++stats[lead_sp_after_tab];
+            ungetc(ch, stdin);
+            per_char(stats);
+        }
+    }
+    /**
+     * Deal with blank lines
+     */
+    if (ch < 0 || ch == '\n') ++stats[blank_lines];
     ungetc(ch, stdin);
+    /**
+     * Deal with the rest of the line
+     */
+    while ((ch = getchar()) >= 0 && ch != '\n') {
+        ungetc(ch, stdin);
+        word(stats);
+    }
+    ungetc(ch, stdin);
+    per_char(stats);
 }
 
-/**
- * Look for closing of multiline comments
- * and process stats separately from code
- * @param stats
- * @param len
- */
-void multiline_comment(double stats[], int len)
+void word(double stats[])
+{
+    per_char(stats);
+}
+
+void per_char(double stats[])
 {
     char ch;
-    // while will leave an unprocessed '*' in "buffer". notation: '*'b
-    while ((ch = getchar()) != '*') {
-        if (ch < 0) {
-            printf("Error: Multiline comment not closed.\n");
-            exit(1);
-        }
-        per_char_in_comment(ch, stats, len);
-        continue;
-    }
-    // '*'b (in "buffer") is skipped for now but processed below
-    while ((ch = getchar()) == '*') {
-        // '*'b is processed here if subsequent '*' are found and then '/' is found
-        per_char_in_comment(ch, stats, len);
-        continue;
-    }
-    if (ch == '/') return;
-    else {
-        // '*'b is processed if there was no comment close but just a sequence of '*'
-        per_char_in_comment('*', stats, len);
-        per_char_in_comment(ch, stats, len);
-        multiline_comment(stats, len);
-    }
-    if (ch < 0) {
-        printf("Error: Multiline comment not closed.\n");
-        exit(1);
-    }
-}
-
-/**
- * Checks and stats to be done for each char regadless of place
- * @param ch
- * @param stats
- * @param len
- */
-void per_char(char ch, double stats[], int len)
-{
-    ++stats[0];                                         // characters
-    if (ch == ' ' || ch == '\t') ++stats[11]; // spaces (including tabs)
-    if (ch == '/') comment(stats, len);                 // comments
-    if (ch == '"' || ch == '\'') quote(ch, stats, len); // quotes
-}
-
-/**
- * Checks and stats to be done for each char inside comments
- * @param ch
- * @param stats
- * @param len
- */
-void per_char_in_comment(char ch, double stats[], int len)
-{
-    ++stats[0];
-    ++stats[14];
-    if (ch == '\n') ++stats[2];
-}
-
-/**
- * Compute stats at line level (leading tabs & spaces, etc)
- * Pass control and a character to word by word processing
- * @param input_ch
- * @param stats
- * @param len
- */
-void line(char input_ch, double stats[], int len)
-{
-    per_char(input_ch, stats, NO_STATS);
-    // 1. Deal with input_ch (passed from calling function)
-    if (input_ch == '\n') {
-        ++stats[2]; // lines
-        ++stats[3]; // blank lines
+    if ((ch = getchar()) < 0) {
+        ungetc(ch, stdin);
         return;
     }
-    // tab expansion
-    int has_tab = 0;
-    int true_line_start = 0;
-    if (input_ch == '\t') {
-        ++stats[1];     // leading spaces
-        has_tab = 1;
+    ++stats[chars];
+    if (flags[has_tab]) ++stats[ch_after_tab];
+    if (regular_space(ch)) {
+        ++stats[spaces];
+        if (flags[has_tab]) ++stats[sp_after_tab];
     }
-    // 2. Read rest of line
-    char ch;
-    while (ch = getchar(), ch >= 0 && ch != '\n') {
-        per_char(ch, stats, NO_STATS);
-        // tab expansion
-        if (has_tab) {
-            if (ch == ' ') ++stats[6];  // spaces after tab
-            if (!true_line_start && (ch == ' ' || ch == '\t')) {
-                ++stats[1]; // leading spaces
-                ++stats[7]; // leading spaces after tab
-            } // leading spaces & leading spaces after tab
-            if (!true_line_start && ch != ' ' && ch != '\t') true_line_start = 1;
-            if (true_line_start) ++stats[5];    // characters after tab
-        }
-    }
-    ++stats[2]; // end of line
 }
 
-/**
- * Compute stats at text level (percentages, averages)
- * Pass control and a character to line by line processing
- * @param stats
- * @param len
- */
-void text(double stats[], int len)
+void compute_text_stats(double stats[])
 {
-    char ch;
-    while ((ch = getchar()) >= 0) {
-        line(ch, stats, len);
+    if (stats[lines]) {
+        stats[blank_percentage] = stats[blank_lines] / stats[lines] * 100;
+        stats[avg_chars_line] = stats[chars] / stats[lines];
+        stats[avg_chars_line_ign_lead_sp] = (stats[chars] - stats[lead_spaces])
+                                            / stats[lines];
+        stats[lead_sp_line] = stats[lead_spaces] / stats[lines];
+        stats[lead_sp_line_ign_lead_sp] = (stats[spaces] - stats[lead_spaces])
+                                          / stats[lines];
     }
-    compute_text_stats(stats, len);
-}
-
-void compute_text_stats(double stats[], int len)
-{
-    // Compute stats. If global stats, always at the end of this function
-    stats[4] = stats[3] / stats[2] * 100;   // blank line percentage
-    stats[8] = stats[0] / stats[2];         // avg characters per line
-    stats[9] = (stats[0] - stats[1]) / stats[2];    // avg chars/line ignoring \
-                                                    leading spaces
-    stats[10] = stats[1] / stats[2];        // leading spaces per line
-    stats[12] = (stats[11] - stats[1]) / stats[2];  // spaces per line \
-                                                    ignoring leading spaces
-    stats[15] = stats[13] / stats[2] * 100;     // comments percentage of \
-                                                   total lines
-    stats[16] = stats[14] / stats[0] * 100;     // percentage of chars in \
-                                                   comments to chars
 }
 
 /**
@@ -341,3 +210,10 @@ void print(char *stat_names[], int show_stat[], int is_percentage[],
         }
     }
 }
+
+int regular_space(char ch)
+{
+    if (ch == ' ' || ch == '\t') return 1;
+    return 0;
+}
+
