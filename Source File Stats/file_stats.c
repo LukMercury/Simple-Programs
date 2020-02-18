@@ -281,7 +281,7 @@ void line(char input_ch, double stats[], int len)
             if (true_line_start) ++stats[5];    // characters after tab
         }
     }
-    ++stats[2];
+    ++stats[2]; // end of line
 }
 
 /**
