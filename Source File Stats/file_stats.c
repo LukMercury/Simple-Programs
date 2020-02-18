@@ -44,6 +44,8 @@ void comment(double stats[], int len);
 void single_line_comment(double stats[], int len);
 void multiline_comment(double stats[], int len);
 
+void compute_text_stats(double stats[], int len);
+
 void print(char *stat_names[], int show_stat[], int is_percentage[],
            double stats[], int len);
 
@@ -296,6 +298,11 @@ void text(double stats[], int len)
     while ((ch = getchar()) >= 0) {
         line(ch, stats, len);
     }
+    compute_text_stats(stats, len);
+}
+
+void compute_text_stats(double stats[], int len)
+{
     // Compute stats. If global stats, always at the end of this function
     stats[4] = stats[3] / stats[2] * 100;   // blank line percentage
     stats[8] = stats[0] / stats[2];         // avg characters per line
