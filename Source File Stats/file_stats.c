@@ -225,6 +225,7 @@ void multiline_comment(double stats[], int len)
 void per_char(char ch, double stats[], int len)
 {
     ++stats[0];                                         // characters
+    if (ch == ' ' || ch == '\t') ++stats[11]; // spaces (including tabs)
     if (ch == '/') comment(stats, len);                 // comments
     if (ch == '"' || ch == '\'') quote(ch, stats, len); // quotes
 }
@@ -263,15 +264,12 @@ void line(char input_ch, double stats[], int len)
     int true_line_start = 0;
     if (input_ch == '\t') {
         ++stats[1];     // leading spaces
-        ++stats[11];    // spaces per line
         has_tab = 1;
     }
-    if (input_ch == ' ') ++stats[11];   // spaces per line
     // 2. Read rest of line
     char ch;
     while (ch = getchar(), ch >= 0 && ch != '\n') {
         per_char(ch, stats, NO_STATS);
-        if (ch == ' ' || ch == '\t') ++stats[11]; // spaces (including tabs)
         // tab expansion
         if (has_tab) {
             if (ch == ' ') ++stats[6];  // spaces after tab
