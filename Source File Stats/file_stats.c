@@ -4,7 +4,6 @@
 #include <ctype.h>
 
 #define NO_STATS 20
-#define WORD_LENGTH 50
 
 void text(double stats[]);
 void line(double stats[]);
