@@ -276,6 +276,7 @@ void comment(double stats[])
         single_line_comment(stats);
     } else if (ch == '*') {
         ++stats[total_comments];
+        per_char(stats);
         multiline_comment(stats);
     } else per_char(stats);
 }
