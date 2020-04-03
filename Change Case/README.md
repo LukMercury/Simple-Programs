@@ -1,5 +1,5 @@
 ### Change case of all characters of files 
-##### Python shell script
+##### Python shell scripts
 
 ---
 
