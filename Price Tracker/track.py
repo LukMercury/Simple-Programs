@@ -14,8 +14,8 @@ price_xpath = '//div[1]/div[3]/div[1]/div[1]/p[3]/span[2]/text()'
 def update_item(item, current_date):
 	url = item["link"]
 	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
-	reply = get(url, headers=headers)
-	tree = html.fromstring(reply.content)
+	response = get(url, headers=headers)
+	tree = html.fromstring(response.content)
 	price = tree.xpath(price_xpath)
 	if not price:
 		price = item["base_price"]
