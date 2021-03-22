@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Ryzen 7",
+        "link": "https://www.pcgarage.ro/procesoare/amd/ryzen-7-3700x-36ghz-box/",
+        "base_price": 1799.99,
+        "min_price": 1565.99,
+        "max_price": 1799.99,
+        "prev_price": 1583.99,
+        "current_price": 1583.99,
+        "discount_alert": 22,
+        "date": "2020-06-12",
+        "track": false,
+        "alert": false,
+        "foreign": false,
+        "mailing_list": [],
+        "send_emails": false
+    }
+]

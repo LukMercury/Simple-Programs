@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then 
+	echo "Usage: new-tracker [tracker name]"
+	exit 1
+fi
+
+TRACKER_NAME=$1
+
+if [ -d "$TRACKER_NAME" ]; then
+	echo "Directory named \"$TRACKER_NAME\" already exists"
+	exit 1
+fi
+
+cp -r "_Generic" "$TRACKER_NAME"
