@@ -1,6 +1,4 @@
 <?php
-    while (1) {
-        shell_exec("song.sh");
-        sleep(2);
-    }
+  shell_exec("song.sh");
+  header('Location: http://192.168.100.9:8000');
 ?>

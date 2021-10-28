@@ -1,4 +1,3 @@
-<!-- <!DOCTYPE html> -->
 <html>
     <head>
         <style type="text/css">
@@ -19,10 +18,11 @@
 
 <body>
 
-<marquee>
-    <?php echo file_get_contents('song.txt'); ?>
-</marquee>
-
+<a href="song.php">    
+    <marquee>
+        <?php echo file_get_contents('song.txt'); ?>
+    </marquee>
+</a>
 
 <a class='prev' href="prev.php">
     <img src="prev-icon.png" width="128" height="128">
@@ -35,7 +35,6 @@
 <a class='next' href="next.php">
     <img src="next-icon.png" width="128" height="128">
 </a>
-
 
 </body>
 
